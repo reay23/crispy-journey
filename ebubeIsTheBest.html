@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 id="Hey">Hi There!!</h1>
+  <p class="description">This is a paragraph.</p>
+  <button id="clickMe">Click Me</button>
+  <input id="nameInput" placeholder="Type your name">
+  <p id="greeting"></p>
+  <!-- <script src="projects.js"></script>-->
+  <script>
+    let Hey = document.getElementById('Hey');
+    Hey.style.color = 'blue';
+    Hey.textContent = 'Welcome';
+    Hey.style.fontsize = '2px';
+
+    let paragraph = document.querySelector('.description');
+    paragraph.innerHTML = '<p>New <strong>paragraph</strong> Added!</p>';
+
+    let button = document.getElementById('clickMe');
+    button.addEventListener('click', function () {
+      alert('Button clicked!');
+      button.textContent = 'You clicked me!';
+      document.body.style.backgroundColor = "lightblue";
+    })
+    innerHTML = '<br/>';
+    let input = document.getElementById('nameInput');
+    let greeting = document.getElementById('greeting');
+    input.addEventListener('input', function () {
+      greeting.textContent = 'Hello, ' + input.value + '!';
+    });
+  </script>
+</body>
+
+</html>
