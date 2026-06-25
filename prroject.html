@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Vintage Press — A Retro Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=IM+Fell+English:ital@0;1&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#f2e8d5',
+            aged:      '#e8d9b8',
+            ink:       '#1a100a',
+            sepia:     '#7c5c3a',
+            rust:      '#a63d2f',
+            gold:      '#c9963a',
+            faded:     '#9e8870',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'aerial'],
+            body:    ['"Special Elite"', 'cursive'],
+            fell:    ['"IM Fell English"', 'aerial'],
+            sans:    ['Oswald', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* Aged paper bg */
+    body {
+      background-color: #f2e8d5;
+      background-image:
+        radial-gradient(ellipse at 60% 50%, rgba(160,120,60,0.08) 0%, transparent 20%),
+        radial-gradient(ellipse at 80% 20%, rgba(140,90,40,0.07) 0%, transparent 55%);
+    }
+
+    /* Drop cap */
+    .drop-cap::first-letter {
+      float: right;
+      font-family: 'Playfair Display', serif;
+      font-size: 5.5rem;
+      line-height: 0.78;
+      padding-right: 0.12em;
+      padding-top: 0.06em;
+      color: #a63d2f;
+      font-weight: 900;
+    }
+
+    /* Ornamental divider */
+    .ornament::before,
+    .ornament::after {
+      content: '— ✦ —';
+      display: block;
+      text-align: center;
+      color: #c9963a;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+    }
+
+    /* Column rules */
+    .col-rule {
+      column-rule: 1px solid #c9963a55;
+    }
+
+    /* Worn border effect */
+    .worn-border {
+      border: 2px solid #7c5c3a;
+      box-shadow: 3px 3px 0 #7c5c3a44, inset 0 0 30px rgba(124,92,58,0.05);
+    }
+
+    /* Stamp */
+    .stamp {
+      border: 3px solid #a63d2f;
+      box-shadow: 2px 2px 0 #a63d2f66;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+
+    /* Hover lift */
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-3px) rotate(-0.3deg);
+      box-shadow: 5px 5px 0 #7c5c3a55;
+    }
+
+    /* Underline link */
+    .vintage-link {
+      text-decoration: underline;
+      text-decoration-color: #c9963a88;
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+    .vintage-link:hover {
+      text-decoration-color: #a63d2f;
+      color: #000000;
+    }
+
+    /* Masthead thick border */
+    .masthead-border {
+      border-top: 6px double #1a100a;
+      border-bottom: 6px double #1a100a;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 4px solid #c9963a;
+      border-right: 4px solid #c9963a;
+    }
+
+    /* Aged image overlay */
+    .aged-img {
+      filter: sepia(60%) contrast(0.9) brightness(0.95);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #e8d9b8; }
+    ::-webkit-scrollbar-thumb { background: #7c5c3a; border-radius: 30px; }
+  </style>
+</head>
+<body class="text-ink font-body">
+
+  <!-- TOP TICKER -->
+  <div class="bg-ink text-parchment text-1xs font-sans tracking-widest py-1.5 overflow-hidden whitespace-nowrap">
+    <div class="inline-block animate-[marquee_20s_linear_infinite]" style="animation: scroll 20s linear infinite;">
+      <style>@keyframes scroll { 0%{transform:translateX(100vw)} 100%{transform:translateX(-100%)} }</style>
+      ☞ VOLUME CXLVII · EST. 1877 SATURDAY EDITION  THE VINTAGE PRESS  ALL THE NEWS PRICE AT: ONE PENNY  ESTABLISHED 1877
+    </div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="max-w-6xl mx-auto px-6 pt-8 pb-4 fade-up">
+    <!-- Date & edition bar -->
+    <div class="flex justify-between items-center text-1xs font-sans tracking-widest text-sepia border-b border-sepia/40 pb-2 mb-4">
+      <p>SATURDAY, MAY 16, 1926</p>
+      <p class="hidden sm:block">VOL. CXLVII NO. 48,231</p>
+      <p>PRICE: ONE PENNY</p>
+    </div>
+
+    <!-- Newspaper name -->
+    <div class="masthead-border py-4 text-center my-2">
+      <p class="font-sans text-xs tracking-[0.5em] text-sepia mb-1 uppercase">Est. 1877</p>
+      <h1 class="font-display text-6xl sm:text-8xl font-gold tracking-wide text-ink leading-none">
+        The Vintage Press
+      </h1>
+      <p class="font-fell italic text-sepia text-xl mt-2 tracking-wide">
+        "Truth in every line · Ink on every page · History in every word"
+      </p>
+    </div>
+
+    <!-- Nav bar -->
+    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 pt-3 pb-1 text-xs font-sans tracking-widest uppercase text-ink border-b-2 border-ink">
+      <a href="#" class="vintage-link hover:text-rust">World</a>
+      <a href="#" class="vintage-link hover:text-rust">Politics</a>
+      <a href="#" class="vintage-link hover:text-rust">Arts &amp; Culture</a>
+      <a href="#" class="vintage-link hover:text-rust">Science</a>
+      <a href="#" class="vintage-link hover:text-rust">Society</a>
+      <a href="#" class="vintage-link hover:text-rust">Opinion</a>
+      <a href="#" class="vintage-link hover:text-rust">Classifieds</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-8xl mx-auto px-6 py-8">
+
+    <!-- HERO ARTICLE -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-0 border-b-2 border-ink pb-8 mb-8 fade-up delay-1">
+
+      <!-- Main story -->
+      <div class="lg:col-span-2 lg:pr-8 lg:border-r-2 lg:border-ink">
+        <div class="mb-3">
+          <p class="stamp inline-block font-sans text-1xs tracking-wide uppercase text-rust px-3 py-1.5 mb-3">
+            ★ Lead Story ★
+          </p>
+          <h2 class="font-display text-2xl sm:text-3xl font-black leading-tight text-ink mb-2">
+            The Grand Exhibition of Modern Wonders Draws Record Crowds to the Capital
+          </h2>
+          <p class="font-fell aerial text-aerial text-lg leading-snug mb-4">
+            Thousands flock to marvel at flying machines, electric contraptions, and the extraordinary phonographic orchestra
+          </p>
+          <div class="flex items-center gap-3 text-xs font-sans tracking-widest text-faded border-t border-b border-sepia/30 py-2 mb-4">
+            <p class="uppercase">BY ojurereoluwa o. ogunmilua</p>
+            <p>·</p>
+            <p>STAFF CORRESPONDENT</p>
+            <p>·</p>
+            <p>MAY 16, 1926</p>
+          </div>
+        </div>
+
+        <!-- Aged hero image placeholder -->
+        <div class="worn-border aged-img overflow-hidden mb-5 relative">
+          <div class="bg-gradient-to-br from-amber-900/40 via-amber-700/20 to-amber-900/40 h-56 flex items-center justify-center">
+            <div class="text-center text-parchment/80">
+              <div class="text-9xl mb-2">🏛️</div>
+              <p class="font-fell aerial text-sm">The Grand Exhibition Hall, as seen from the East Promenade</p>
+            </div>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-ink/70 text-parchment font-sans text-1xs tracking-wide px-3 py-1">
+            Fig. I — Illustration by our artist, Mr. Reginald Pemberton
+          </div>
+        </div>
+
+        <!-- Article body -->
+        <div class="space-y-4 text-[0.97rem] leading-relaxed columns-1 sm:columns-2 col-rule gap-8">
+          <p class="drop-cap">
+            he vast halls of the Crystal Pavilion were thrown open to the public yesterday morning, and by all accounts the spectacle within surpassed even the most extravagant predictions of its organisers. Crowds began assembling before dawn, their breath misting in the cool morning air as they jostled patiently for admittance.
+          </p>
+          <p>
+            Among the exhibits drawing the greatest fascination was the remarkable aeroplane constructed entirely of aluminium by Messrs. Hawthorne & Sons of Birmingham, which was demonstrated in the outer courtyard to the accompaniment of tremendous applause. Several members of our party declared it the most extraordinary sight they had ever witnessed.
+          </p>
+          <p>
+            The phonographic orchestra, conducted by the celebrated Maestro Floriani, performed selections from Verdi and Schubert through a remarkable system of amplifying horns, filling the rotunda with music of astonishing clarity. Ladies in attendance were observed pressing handkerchiefs to their eyes during the more affecting passages.
+          </p>
+          <p>
+            We understand that Her Majesty's representative, the Honourable Sir Edward Colquhoun, will formally open the exhibition on the morrow, after which the public shall be admitted at a reduced tariff of thruppence per person, sixpence for families.
+          </p>
+        </div>
+
+        <!-- Pull quote -->
+        <blockquote class="pull-quote my-6 px-6 py-4 text-center bg-aged/50">
+          <p class="font-display text-2xl serif font-bold text-ink leading-snug mb-2">
+            "A triumph of human ingenuity — the age of marvels is upon us at last"
+          </p>
+          <p class="font-sans text-xs tracking-widest text-sepia">— SIR EDWARD COLQUHOUN, ROYAL CORRESPONDENT</p>
+        </blockquote>
+
+        <a href="#" class="inline-block font-sans text-xs tracking-widest uppercase text-rust border-b-2 border-rust pb-0.5 hover:text-ink hover:border-ink transition-colors">
+          Continue Reading →
+        </a>
+      </div>
+
+      <!-- Sidebar column -->
+      <aside class="lg:pl-8 pt-8 lg:pt-0 space-y-6 border-t-2 lg:border-t-0 border-ink">
+
+        <!-- Secondary story 1 -->
+        <div class="card-hover worn-border p-4 bg-aged/40 fade-up delay-2">
+          <p class="font-sans text-xs tracking-widest uppercase text-rust block mb-1">Society</p>
+          <h3 class="font-display text-lg font-bold leading-tight mb-2">
+            Lady Haverstock's Autumn Ball Declared the Season's Most Dazzling Affair
+          </h3>
+          <p class="text-sm leading-relaxed text-sepia">
+            Some four hundred guests attended the grand soirée at Haverstock Hall, where the new electric chandeliers were praised as nothing short of miraculous...
+          </p>
+          <a href="#" class="vintage-link text-xs font-sans tracking-widest text-rust mt-2 inline-block">Read More</a>
+        </div>
+
+        <!-- Ornament divider -->
+        <div class="text-center text-gold tracking-widest">— ✦ —</div>
+
+        <!-- Secondary story 2 -->
+        <div class="card-hover worn-border p-4 bg-aged/40 fade-up delay-3">
+          <p class="font-sans text-xs tracking-widest uppercase text-rust block mb-1">Science</p>
+          <h3 class="font-display text-lg font-bold leading-tight mb-2">
+            Professor Ashworth's Radio Telescope Detects Signals From the Outer Cosmos
+          </h3>
+          <p class="text-sm leading-relaxed text-sepia">
+            The distinguished astronomer claims to have intercepted regular pulses of unknown origin emanating from beyond the constellation of Cassiopeia...
+          </p>
+          <a href="#" class="vintage-link text-xs font-sans tracking-widest text-rust mt-2 inline-block">Read More</a>
+        </div>
+
+        <!-- Advertisement box -->
+        <div class="text-center worn-border p-4 bg-parchment">
+          <p class="font-sans text-xs tracking-widest uppercase text-faded mb-2">— Advertisement —</p>
+          <p class="font-display text-2xl font-black text-ink leading-tight mb-1">ARKWRIGHT'S</p>
+          <p class="font-fell italic text-sepia text-sm mb-2">Finest Tobacco & Sundries</p>
+          <div class="border border-gold/50 p-2 my-2">
+            <p class="font-body text-xs text-ink leading-snug">
+              "For the discerning gentleman who demands only the very finest in tobaccos, pipes, and sundry pleasures of the leaf."
+            </p>
+          </div>
+          <p class="font-serif text-1xs tracking-widest text-rust">14 RERE'S STREET · EST. 1889</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SECTION HEADER: MORE STORIES -->
+    <div class="text-center mb-8 fade-up delay-2">
+      <div class="flex items-center gap-4">
+        <div class="flex-1 h-px bg-ink"></div>
+        <h2 class="font-sans text-sm tracking-[0.5em] uppercase text-ink">Further Dispatches</h2>
+        <div class="flex-1 h-px bg-ink"></div>
+      </div>
+    </div>
+
+    <!-- ARTICLE CARDS GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 fade-up delay-3">
+
+      <!-- Card 1 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">Politics</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          Parliament in Furore Over the New Railway Consolidation Act
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          Heated debate erupted in the Commons last evening as the Right Honourable Mr. Pemberton put forward his controversial proposal to nationalise the northern lines under a single authority...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 15, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">Arts & Culture</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          The New Oil Paintings of Mr. Cornelius Drake Astonish the Royal Academy
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          Critics have hailed the young Mr. Drake's latest collection as a revelation, his bold use of impasto and unprecedented treatment of light drawing comparisons to the masters of the Dutch Golden Age...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 14, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">World</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          Expedition to the Sahara Returns with Remarkable Relics of Antiquity
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          The twelve-man party led by the intrepid Colonel Ashby has arrived in Marseille bearing artefacts believed to date from the era of the Pharaohs, including a ceremonial mask of pure gold...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 13, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">Opinion</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          On the Moral Imperative of the Printed Word in an Age of Moving Pictures
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          Our esteemed editor argues that the cinema, for all its spectacle, can never supplant the quiet dignity of the written page as the primary vehicle for civilised discourse and the cultivation of the mind...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 12, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">Society</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          The Remarkable Automaton of Zurich: A Machine That Plays Chess
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          A Swiss engineer has demonstrated before a select audience a mechanical device of extraordinary complexity, capable of playing a competent game of chess entirely without human intervention...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 11, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card-hover worn-border p-5 bg-aged/30 flex flex-col">
+        <span class="font-sans text-xs tracking-widest uppercase text-rust mb-2">Science</span>
+        <h3 class="font-display text-xl font-bold leading-snug mb-2">
+          Dr. Helena Marsh Proposes a Radical New Theory of Celestial Mechanics
+        </h3>
+        <p class="text-sm leading-relaxed text-sepia flex-1">
+          In a paper read before the Royal Society, the distinguished astronomer challenges Newton's established laws with equations that predict previously unobserved perturbations in the orbit of Jupiter...
+        </p>
+        <div class="mt-4 pt-3 border-t border-sepia/30 flex justify-between items-center">
+          <span class="font-sans text-xs text-faded tracking-wide">May 10, 1926</span>
+          <a href="#" class="vintage-link font-sans text-xs text-rust tracking-widest">Read →</a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- SUBSCRIBE BANNER -->
+    <div class="worn-border bg-ink text-parchment p-8 text-center mb-12 relative overflow-hidden fade-up delay-4">
+      <!-- decorative corner marks -->
+      <span class="absolute top-3 left-3 text-gold/50 text-2xl font-display">❧</span>
+      <span class="absolute top-3 right-3 text-gold/50 text-2xl font-display">❧</span>
+      <span class="absolute bottom-3 left-3 text-gold/50 text-2xl font-display rotate-180">❧</span>
+      <span class="absolute bottom-3 right-3 text-gold/50 text-2xl font-display rotate-180">❧</span>
+
+      <p class="font-sans text-xs tracking-[0.5em] uppercase text-gold mb-3">— Subscribe to Our Gazette —</p>
+      <h3 class="font-display text-3xl sm:text-4xl font-black leading-tight mb-2">
+        Delivered Each Morning<br/>to Your Door
+      </h3>
+      <p class="font-fell italic text-parchment/70 text-sm mb-6">
+        For sixpence per fortnight, receive all the news and opinion worth reading.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input type="email" placeholder="Your telegraphic address…"
+          class="flex-1 bg-parchment/10 border border-parchment/30 text-parchment placeholder-parchment/40 font-body text-sm px-4 py-2 focus:outline-none focus:border-gold"/>
+        <button class="bg-gold text-ink font-sans text-xs tracking-widest uppercase px-6 py-2 hover:bg-rust hover:text-parchment transition-colors">
+          Subscribe
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 double-border border-ink bg-aged/50 px-6 py-10">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h4 class="font-sans text-xs tracking-widest uppercase text-ink mb-3 border-b border-sepia/40 pb-1">The Press</h4>
+          <ul class="space-y-1.5 text-1xs">
+            <li><a href="#" class="vintage-link">About Us</a></li>
+            <li><a href="#" class="vintage-link">Our Correspondents</a></li>
+            <li><a href="#" class="vintage-link">Editorial Board</a></li>
+            <li><a href="#" class="vintage-link">Archives</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-sans text-xs tracking-widest uppercase text-ink mb-3 border-b border-sepia/40 pb-1">Sections</h4>
+          <ul class="space-y-1.5 text-1xs ">
+            <li><a href="#" class="vintage-link">World Affairs</a></li>
+            <li><a href="#" class="vintage-link">Politics</a></li>
+            <li><a href="#" class="vintage-link">Arts & Culture</a></li>
+            <li><a href="#" class="vintage-link">Science</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-sans text-xs tracking-widest uppercase text-ink mb-3 border-b border-sepia/40 pb-1">Services</h4>
+          <ul class="space-y-1.5 text-1xs">
+            <li><a href="#" class="vintage-link">Subscriptions</a></li>
+            <li><a href="#" class="vintage-link">Classifieds</a></li>
+            <li><a href="#" class="vintage-link">Announcements</a></li>
+            <li><a href="#" class="vintage-link">Letters to Ed.</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-widest uppercase text-ink mb-3 border-b border-sepia/40 pb-1">Contact</h4>
+          <ul class="space-y-1.5 text-1xs">
+            <li>40 RERE'S Street</li>
+            <li>Nigeria, Lagos</li>
+            <Tel:>234 9032116672</Tel:>
+            <li><a href="#" class="vintage-link">Write to Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center pt-6 border-t border-sepia/30">
+        <p class="font-display text-2xl font-black text-ink mb-1">The Vintage Press</p>
+        <p class="font-fell sans text-sans text-1xs">
+          © 1926 The Vintage Press Ltd. · All Rights Reserved · Printed in Nigeria
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

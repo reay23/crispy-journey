@@ -1,24 +1,16 @@
-// Get the display input field 
-const display = document.getElementById("display"); 
-// Get all buttons 
-const buttons = document.querySelectorAll(".btn"); 
-// Variable to store current input 
-let currentInput = ""; 
-// Add event listeners to buttons
-buttons.forEach(button => { button.addEventListener("click", function() { 
-const value = this.textContent; 
-if (value === "C") { 
-  // Clear the display
- currentInput = ""; display.value = ""; 
-} else if (value === "=") { 
-  try { 
-    // Evaluate the expression 
-  currentInput = eval(currentInput).toString(); 
-  display.value = currentInput; 
-} catch (error) { 
-  display.value = "Error"; 
-} } else { 
-  // Append the clicked button value to the input 
-currentInput += value; display.value = currentInput; 
-} }); 
-});
+function handleClick() {
+  alert('Welcome! Let\'s get started 🚀')
+}
+
+function submitContact() {
+  const name = document.getElementById('nameInput').value
+
+  if (name.trim() === '') {
+    alert('Please enter your name!')
+    return
+  }
+
+  const message = document.getElementById('message')
+  message.textContent = `Thanks ${name}! I'll be in touch. 👋`
+  message.classList.remove('hidden')
+}

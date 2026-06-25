@@ -1,24 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Calculator</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<body>
-  <div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="buttons"> <button class="btn operator">+</button> <button class="btn operator">-</button> <button
-        class="btn operator">*</button> <button class="btn operator">/</button> <button class="btn number">7</button>
-      <button class="btn number">8</button> <button class="btn number">9</button> <button class="btn number">4</button>
-      <button class="btn number">5</button> <button class="btn number">6</button> <button class="btn number">1</button>
-      <button class="btn number">2</button> <button class="btn number">3</button> <button class="btn number">0</button>
-      <button class="btn" id="clear">C</button> <button class="btn" id="equals">=</button> </div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="bg-gray-100 text-gray-800">
+
+<nav class="bg-white shadow-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 w-full">
+  <h1 class="text-2xl font-bold text-blue-600">MyBrand</h1>
+  <ul class="flex gap-6 text-gray-600">
+    <li><a href="#home" class="hover:text-blue-500">Home</a></li>
+    <li><a href="#about" class="hover:text-blue-500">About</a></li>
+    <li><a href="#myworks" class="hover:text-blue-500">My Works</a></li>
+    <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+  <h2 class="text-5xl font-bold text-gray-800 mb-4 animate-[bounce_3s_infinite]">Welcome to My Website</h2>
+  <p class="text-xl text-gray-500 mb-8">I build cool things for the web.</p>
+  <button
+    onclick="handleClick()"
+    class="bg-blue-600 text-white px-6 py-2 rounded-full text-lg hover:bg-blue-700 transition-all duration-300 ease-in-out hover:-translate-y-0.5 active:-translate-y-0 font-semibold animate-[bounce_3s_infinite]">
+    Get Started
+  </button>
+</section>
+
+<section id="about" class="bg-skyblue py-16 px-8 text-center">
+  <h3 class="text-3xl font-bold mb-4">About Me</h3>
+  <p class="text-gray-500 max-w-xl mx-auto">
+    I am a web developer and Software Engineer <br/>learning HTML, Tailwind CSS, and JavaScript.<br/>
+    I love building And designing beautiful websites.
+  </p>
+</section>
+
+<section id="myworks" class="py-16 px-8">
+  <h3 class="text-5xl font-bold text-center italic mb-10">My Works</h3>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+    <div class="bg-skyblue rounded-xl shadow-md p-6 mx-auto hover:bg-white-700 transition-all duration-300 ease-in-out hover:-translate-y-0.5">
+      <h4 class="text-xl font-bold mb-2 font-bold">Project One</h4>
+      <img class="bg-white backdrop-blur-md rounded-1xl mx-auto" src="images/homeoutput.PNG" alt="An homepage of a website i built">
+      <p class="text-gray-500 font-semibold">A cool home page i designed.</p>
+    </div>
+
+    <div class="bg-skyblue rounded-xl shadow-md p-6 hover:bg-white-700 transition-all duration-300 ease-in-out hover:-translate-y-0.5">
+      <h4 class="text-xl font-bold mb-2">Project Two</h4>
+      <img class="bg-white backdrop-blur-md rounded-1xl mx-auto" src="images/aboutoutput.PNG" alt="An about page i designed">
+      <p class="text-gray-500 font-semibold">Another amazing project.</p>
+    </div>
+
+    <div class="bg-skyblue rounded-xl shadow-md p-6 hover:bg-white-700 transition-all duration-300 ease-in-out hover:-translate-y-0.5">
+      <h4 class="text-xl font-bold mb-2">Project Three</h4>
+      <img class="bg-white backdrop-blur-md rounded-1xl mx-auto" src="images/projectoutput.PNG" alt="My projects">
+      <p class="text-gray-500 font-semibold">My Project Page.</p>
+    </div>
   </div>
-  <script src="script.js"></script>
-</body>
+</section>
+  <section id="contact" class="bg-skyblue py-16 px-8 text-center">
+  <h3 class="text-3xl font-bold mb-6">Contact Me</h3>
+  <input
+    id="nameInput"
+    type="text"
+    placeholder="Enter your name"
+    class="border border-gray-300 rounded-lg px-4 py-2 w-72 mb-4 block mx-auto"
+  />
+  <button
+    onclick="submitContact()"
+    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition animate-[bounce_2s_infinite]">
+    Submit
+  </button>
+  <p id="message" class="mt-4 text-green-500 hidden">Thanks! I'll be in touch. 👋</p>
+</section>
 
+<footer class="bg-black-800 text-black font-semibold text-center py-6">
+  <p>© 2025 MyBrand. All rights reserved.</p>
+</footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
